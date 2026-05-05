@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pro Dental Connect — UK Dental Practice Management Software</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#060e1f;--navy:#0b1e45;--navy2:#112758;--navy3:#1a3570;
+  --teal:#17b89b;--teal2:#12a589;--teal3:#0d9178;--teal-lt:#e2faf6;--teal-glow:rgba(23,184,155,.15);
+  --amber:#f0a100;--amber-lt:#fff8e6;
+  --white:#fff;--off:#f5f8fc;--off2:#edf1f8;
+  --text:#111827;--t2:#374151;--t3:#6b7280;--t4:#9ca3af;
+  --bdr:#dde4ef;--bdr2:#c8d3e6;
+  --sh1:0 1px 4px rgba(6,14,31,.06);--sh2:0 4px 16px rgba(6,14,31,.1);
+  --sh3:0 10px 36px rgba(6,14,31,.13);--sh4:0 20px 60px rgba(6,14,31,.17);
+  --r:16px;--r2:12px;--r3:8px;
+}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:'DM Sans',system-ui,sans-serif;font-size:16px;color:var(--text);background:var(--white);overflow-x:hidden;line-height:1.62}
+h1,h2,h3,h4{font-family:'Sora',sans-serif;line-height:1.1;letter-spacing:-.025em}
+a{text-decoration:none;color:inherit}
+button{font-family:'DM Sans',sans-serif;cursor:pointer;border:none;outline:none}
+.W{max-width:1200px;margin:0 auto;padding:0 clamp(1rem,4vw,2.5rem)}
+/* ─ BUTTONS ─ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.875rem 2rem;border-radius:10px;font-size:1rem;font-weight:600;transition:all .18s;white-space:nowrap;cursor:pointer;border:none;font-family:'DM Sans',sans-serif}
+.btn-p{background:linear-gradient(135deg,var(--teal),var(--teal2));color:#fff;box-shadow:0 4px 16px rgba(23,184,155,.35)}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(23,184,155,.48)}
+.btn-o{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.36)}
+.btn-o:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.65)}
+.btn-ghost{background:transparent;color:var(--teal3);border:2px solid var(--teal3)}
+.btn-ghost:hover{background:var(--teal);color:#fff}
+.btn-dark{background:rgba(255,255,255,.1);color:#fff;border:1.5px solid rgba(255,255,255,.2)}
+.btn-dark:hover{background:rgba(255,255,255,.18)}
+.btn-sm{padding:.625rem 1.375rem;font-size:.9rem;border-radius:8px}
+.btn-lg{padding:1.125rem 2.5rem;font-size:1.0625rem;border-radius:12px}
+/* ─ TAG ─ */
+.tag{display:inline-flex;align-items:center;gap:.35rem;padding:.28rem .875rem;border-radius:20px;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.tag-t{background:var(--teal-lt);color:var(--teal3);border:1px solid rgba(23,184,155,.22)}
+.tag-n{background:rgba(11,30,69,.07);color:var(--navy2);border:1px solid rgba(11,30,69,.12)}
+.tag-w{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.tag-a{background:var(--amber-lt);color:#92600a;border:1px solid rgba(240,161,0,.22)}
+/* ─ NAV ─ */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;padding:.9375rem 0;background:rgba(11,30,69,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 0 rgba(255,255,255,.07)}
+.nav-r{display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.logo{display:flex;align-items:center;gap:.75rem}
+.logo-ic{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--teal),var(--teal2));display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0}
+.logo-n{font-family:'Sora',sans-serif;font-weight:800;font-size:1rem;color:#fff;line-height:1.15}
+.logo-n span{display:block;font-size:.64rem;color:rgba(23,184,155,.8);font-weight:500;text-transform:uppercase;letter-spacing:.1em}
+.nav-l{display:flex;align-items:center;gap:1.75rem}
+.nav-l a{color:rgba(255,255,255,.7);font-size:.9375rem;font-weight:500;transition:color .15s}
+.nav-l a:hover{color:#fff}
+.nav-c{display:flex;align-items:center;gap:.75rem}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.burger span{display:block;width:22px;height:2px;background:rgba(255,255,255,.8);border-radius:2px;transition:all .2s}
+.drawer{display:none;position:fixed;inset:0;background:var(--navy);z-index:850;flex-direction:column;padding:5rem 2rem 2rem;gap:1.125rem}
+.drawer.open{display:flex}
+.drawer a{font-size:1.25rem;font-weight:700;color:#fff;padding:.625rem 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.d-close{position:absolute;top:1.25rem;right:1.25rem;background:rgba(255,255,255,.1);border:none;color:#fff;width:38px;height:38px;border-radius:50%;font-size:1.125rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+/* ─ HERO ─ */
+.hero{min-height:100vh;background:linear-gradient(148deg,#060e1f 0%,#0b1e45 35%,#0f2d65 65%,#0a2050 100%);display:flex;align-items:center;padding:7rem 0 4rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 72% 58% at 82% 38%,rgba(23,184,155,.14) 0%,transparent 68%),radial-gradient(ellipse 48% 42% at 12% 62%,rgba(23,184,155,.08) 0%,transparent 58%);pointer-events:none}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:56px 56px;pointer-events:none}
+.hero-in{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.45rem 1rem;background:rgba(23,184,155,.14);border:1px solid rgba(23,184,155,.32);border-radius:20px;color:rgba(226,250,246,.9);font-size:.78rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:1.5rem}
+.h1{font-size:clamp(2.25rem,4vw,3.75rem);font-weight:900;color:#fff;line-height:1.06;letter-spacing:-.04em;margin-bottom:1.375rem}
+.h1 .acc{background:linear-gradient(125deg,#5ee8d8,#17b89b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(1rem,1.5vw,1.125rem);color:rgba(255,255,255,.65);line-height:1.76;margin-bottom:2.125rem;max-width:520px}
+.hero-acts{display:flex;gap:.875rem;flex-wrap:wrap;margin-bottom:1.875rem}
+.chips{display:flex;flex-wrap:wrap;gap:.625rem}
+.chip{display:flex;align-items:center;gap:.35rem;padding:.3rem .75rem;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:20px;font-size:.75rem;font-weight:600;color:rgba(255,255,255,.62)}
+.hero-cmp{display:flex;gap:.625rem;flex-wrap:wrap;margin-top:1.25rem}
+.cmp-chip{padding:.35rem .875rem;background:rgba(23,184,155,.13);border:1px solid rgba(23,184,155,.3);border-radius:8px;font-size:.78rem;font-weight:700;color:rgba(226,250,246,.9)}
+/* Mockup */
+.mock-wrap{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:18px;overflow:hidden;padding:1rem;box-shadow:0 28px 72px rgba(0,0,0,.3)}
+.mock-bar{display:flex;gap:.4rem;margin-bottom:.875rem}
+.mock-dot{width:9px;height:9px;border-radius:50%}
+.mock-screen{background:#eef2f8;border-radius:12px;overflow:hidden;font-size:.6rem}
+.m-top{background:#0b1e45;height:34px;display:flex;align-items:center;padding:0 .875rem;gap:.5rem}
+.m-logo{font-family:'Sora',sans-serif;font-size:.68rem;font-weight:800;color:#fff}
+.m-logo em{color:#5ee8d8;font-style:normal}
+.m-sp{flex:1;height:7px;background:rgba(255,255,255,.08);border-radius:4px;margin:0 .625rem}
+.m-av{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.18)}
+.m-nav{display:flex;gap:2px;padding:.4rem .625rem;background:#fff;border-bottom:1px solid #dde4ef}
+.m-ni{padding:.2rem .45rem;border-radius:4px;font-weight:600;color:#6b7280}
+.m-ni.on{background:#eff6ff;color:#1d4ed8}
+.m-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:.375rem;padding:.5rem}
+.m-kpi{background:#fff;border:1px solid #dde4ef;border-radius:6px;padding:.45rem;border-left:3px solid}
+.m-kv{font-size:1rem;font-weight:800;color:#0b1e45;font-family:'Sora',sans-serif;line-height:1}
+.m-kl{font-size:.48rem;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
+.m-kc{font-size:.48rem;font-weight:700;margin-top:2px}
+.m-alert{margin:.2rem .5rem;background:#eff6ff;border:1px solid #bfdbfe;border-radius:4px;padding:.35rem .45rem;font-weight:600;color:#1d4ed8}
+.m-rows{display:flex;flex-direction:column;gap:.25rem;padding:.25rem .5rem .5rem}
+.m-row{padding:.35rem .45rem;border-radius:4px;font-weight:600}
+/* Floating pills */
+.pill{position:absolute;background:#fff;border-radius:12px;padding:.625rem .9rem;box-shadow:var(--sh3);display:flex;align-items:center;gap:.5rem;border:1px solid #dde4ef}
+.pill-ic{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.875rem}
+.pill-t{font-size:.75rem;font-weight:700;color:#060e1f}
+.pill-s{font-size:.6rem;color:#9ca3af}
+.p1{top:-14px;right:-18px;animation:fA 3s ease-in-out infinite}
+.p2{bottom:20px;left:-24px;animation:fB 3.5s .4s ease-in-out infinite}
+/* ─ STATS ─ */
+.stats-bar{background:#fff;border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr)}
+.stats-r{display:flex;align-items:stretch}
+.stat{flex:1;padding:2rem 1.5rem;border-right:1px solid var(--bdr);text-align:center;transition:background .18s}
+.stat:last-child{border-right:none}
+.stat:hover{background:var(--off)}
+.s-n{font-family:'Sora',sans-serif;font-size:2.5rem;font-weight:900;color:var(--navy);letter-spacing:-.06em;line-height:1}
+.s-n em{color:var(--navy);font-style:normal}
+.s-l{font-size:.9375rem;color:var(--t2);margin-top:.35rem;font-weight:500}
+/* ─ SECTION COMMONS ─ */
+.sec{padding:5.5rem 0}
+.bg-off{background:var(--off)}
+.bg-navy{background:var(--navy)}
+.sec-tag{text-align:center;margin-bottom:.875rem}
+.sec-h{font-size:clamp(1.875rem,3vw,2.875rem);font-weight:800;color:var(--navy);text-align:center;letter-spacing:-.035em;margin-bottom:1rem;max-width:740px;margin-left:auto;margin-right:auto}
+.sec-h-wt{color:#fff}
+.sec-sub{font-size:1.0625rem;color:var(--t2);text-align:center;line-height:1.74;max-width:580px;margin:0 auto 3rem}
+.sec-sub-wt{color:rgba(255,255,255,.58)}
+/* ─ FEATURES ─ */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.375rem}
+.fc{background:#fff;border:1px solid var(--bdr);border-radius:var(--r);padding:1.875rem;transition:all .22s;display:flex;flex-direction:column}
+.fc:hover{transform:translateY(-4px);box-shadow:var(--sh3);border-color:rgba(23,184,155,.3)}
+.fc.span3{grid-column:1/-1}
+.fc.dark{background:linear-gradient(148deg,var(--navy),var(--navy2));border-color:transparent}
+.fc.dark .fc-h{color:#fff}
+.fc.dark .fc-p{color:rgba(255,255,255,.6)}
+.fc-ico{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.375rem;margin-bottom:1.25rem;flex-shrink:0}
+.ico-t{background:rgba(23,184,155,.12);border:1px solid rgba(23,184,155,.22)}
+.ico-n{background:rgba(11,30,69,.08);border:1px solid rgba(11,30,69,.12)}
+.ico-b{background:rgba(0,94,184,.1);border:1px solid rgba(0,94,184,.18)}
+.ico-a{background:rgba(240,161,0,.1);border:1px solid rgba(240,161,0,.2)}
+.fc-plan{display:inline-flex;align-items:center;gap:.25rem;margin-bottom:.875rem;font-size:.7rem;font-weight:700;padding:.2rem .6rem;border-radius:10px;width:fit-content}
+.fc-h{font-family:'Sora',sans-serif;font-size:1.0625rem;font-weight:700;color:var(--navy);margin-bottom:.5rem;letter-spacing:-.02em}
+.fc-p{font-size:.9rem;color:var(--t2);line-height:1.68;flex:1}
+.fc-link{display:block;color:var(--teal3);font-size:.875rem;font-weight:600;margin-top:.875rem}
+.fc-wide{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:center}
+.fc-screen{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;overflow:hidden}
+.fcs-bar{background:rgba(255,255,255,.08);height:28px;display:flex;align-items:center;padding:0 .75rem;gap:.3rem}
+.fcs-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.25)}
+.fcs-row{display:flex;align-items:center;gap:.5rem;padding:.45rem .625rem;border-radius:5px;font-size:.72rem;font-weight:600;margin:.35rem .5rem}
+/* ─ HOW IT WORKS ─ */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;position:relative}
+.steps::before{content:'';position:absolute;top:32px;left:calc(16.66% + 1rem);right:calc(16.66% + 1rem);height:2px;background:linear-gradient(90deg,var(--teal),var(--teal2));z-index:0}
+.step{text-align:center;position:relative;z-index:1}
+.step-n{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--navy3));color:#fff;font-family:'Sora',sans-serif;font-size:1.375rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 1.375rem;box-shadow:0 6px 24px rgba(23,184,155,.3),0 0 0 4px rgba(23,184,155,.1)}
+.step-h{font-family:'Sora',sans-serif;font-size:1.125rem;font-weight:700;color:var(--navy);margin-bottom:.625rem}
+.step-p{font-size:.9375rem;color:var(--t2);line-height:1.7}
+/* ─ BOOKING ─ */
+.bk{background:linear-gradient(148deg,#060e1f 0%,#10275a 50%,#0b1e45 100%);padding:5.5rem 0;position:relative;overflow:hidden}
+.bk::before{content:'';position:absolute;top:-100px;right:-100px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(23,184,155,.14),transparent 70%);pointer-events:none}
+.bk-in{display:grid;grid-template-columns:1fr 1fr;gap:4.5rem;align-items:center;position:relative;z-index:1}
+.bw{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:18px;overflow:hidden;backdrop-filter:blur(8px)}
+.bw-hd{background:linear-gradient(135deg,var(--navy2),#1a4d9e);padding:1.25rem 1.5rem}
+.bw-t{font-family:'Sora',sans-serif;font-size:.9375rem;font-weight:700;color:#fff;margin-bottom:.175rem}
+.bw-s{font-size:.8rem;color:rgba(255,255,255,.45)}
+.bw-prog{display:flex;gap:3px;margin-top:.625rem}
+.bw-stp{height:3px;flex:1;border-radius:2px;background:rgba(255,255,255,.12)}
+.bw-stp.on{background:var(--teal-lt)}
+.bw-b{padding:1.125rem}
+.bw-types{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.875rem}
+.bw-type{border:1.5px solid rgba(255,255,255,.1);border-radius:8px;padding:.625rem;text-align:center;cursor:pointer;transition:all .15s}
+.bw-type.sel{border-color:var(--teal);background:rgba(23,184,155,.12)}
+.bt-ic{font-size:1.125rem;margin-bottom:.25rem}
+.bt-n{font-size:.72rem;font-weight:700;color:#fff}
+.bt-p{font-size:.62rem;color:rgba(255,255,255,.42)}
+.bw-dep{background:rgba(240,161,0,.08);border:1px solid rgba(240,161,0,.25);border-radius:7px;padding:.625rem .75rem;margin-bottom:.75rem;font-size:.78rem;font-weight:600;color:rgba(255,240,200,.9)}
+.bw-dep em{color:var(--amber);font-style:normal}
+.bw-btn{width:100%;padding:.75rem;background:linear-gradient(135deg,var(--teal),var(--teal2));color:#fff;border:none;border-radius:8px;font-size:.9375rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif}
+.bk-feats{display:flex;flex-direction:column;gap:1.25rem}
+.bf{display:flex;align-items:flex-start;gap:.875rem}
+.bf-ic{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.0625rem;flex-shrink:0;background:rgba(23,184,155,.2);border:1.5px solid rgba(23,184,155,.4)}
+.bf-h{font-family:'Sora',sans-serif;font-size:.9375rem;font-weight:700;color:#fff;margin-bottom:.2rem}
+.bf-p{font-size:.875rem;color:rgba(255,255,255,.55);line-height:1.62}
+/* ─ NHS ─ */
+.nhs-in{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.nhs-bdg{display:inline-flex;align-items:center;gap:.5rem;padding:.375rem .875rem;background:rgba(0,94,184,.2);border:1px solid rgba(0,94,184,.36);border-radius:6px;color:#60a5fa;font-size:.8rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:.875rem}
+.nhs-h{font-size:clamp(1.75rem,2.5vw,2.5rem);font-weight:800;color:#fff;letter-spacing:-.04em;line-height:1.1;margin-bottom:.875rem}
+.nhs-p{font-size:1rem;color:rgba(255,255,255,.55);line-height:1.74}
+.nhs-fs{display:flex;flex-direction:column;gap:.8rem;margin-top:1.625rem}
+.nhs-f{display:flex;align-items:center;gap:.75rem;font-size:.9375rem;color:rgba(255,255,255,.72)}
+.nhs-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);flex-shrink:0}
+.nhs-stats{display:grid;grid-template-columns:1fr 1fr;gap:.875rem}
+.nhs-st{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.25rem;text-align:center}
+.nhs-st:hover{background:rgba(255,255,255,.08)}
+.nhs-num{font-family:'Sora',sans-serif;font-size:2rem;font-weight:900;color:rgba(226,250,246,.9);letter-spacing:-.04em}
+.nhs-lbl{font-size:.8rem;color:rgba(255,255,255,.42);margin-top:.25rem}
+.nhs-care{background:rgba(0,94,184,.13);border:1px solid rgba(0,94,184,.28);border-radius:13px;padding:1.25rem;margin-top:.875rem}
+.nhs-care-t{font-size:.72rem;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.425rem}
+.nhs-care-p{font-size:.9rem;color:rgba(255,255,255,.55);line-height:1.65}
+/* ─ SECURITY ─ */
+.sec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.375rem}
+.sec-card{background:#fff;border:1px solid var(--bdr);border-radius:var(--r);padding:1.75rem;transition:all .22s;display:flex;gap:1.125rem;align-items:flex-start}
+.sec-card:hover{box-shadow:var(--sh2);transform:translateY(-3px)}
+.sc-ico{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:1.375rem;flex-shrink:0}
+.sc-h{font-family:'Sora',sans-serif;font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.375rem}
+.sc-p{font-size:.875rem;color:var(--t2);line-height:1.65}
+.cert-bar{background:var(--navy);border-radius:14px;padding:1.375rem 2rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;justify-content:space-between;margin-top:2rem}
+.cert-lbl{font-size:.75rem;font-weight:700;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.1em;white-space:nowrap}
+.certs{display:flex;gap:.625rem;flex-wrap:wrap}
+.cert{padding:.35rem .875rem;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:5px;font-size:.72rem;font-weight:700;color:#fff}
+/* ─ TESTIMONIALS ─ */
+.t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.375rem}
+.tc{background:#fff;border:1px solid var(--bdr);border-radius:var(--r);padding:1.875rem;transition:all .22s;display:flex;flex-direction:column}
+.tc:hover{box-shadow:var(--sh2);transform:translateY(-3px)}
+.tc-stars{color:#f59e0b;font-size:.9rem;letter-spacing:.1em;margin-bottom:1rem}
+.tc-q{font-size:.975rem;color:var(--t2);line-height:1.76;font-style:italic;margin-bottom:1.375rem;flex:1}
+.tc-auth{display:flex;align-items:center;gap:.75rem}
+.tc-av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:.8rem;font-weight:800;color:#fff;flex-shrink:0}
+.tc-n{font-family:'Sora',sans-serif;font-weight:700;color:var(--navy);font-size:.9375rem}
+.tc-r{font-size:.8rem;color:var(--t3)}
+.tc-bdg{display:inline-flex;align-items:center;gap:.25rem;margin-top:.3rem;font-size:.68rem;font-weight:600;padding:.15rem .5rem;border-radius:10px}
+/* ─ PRICING ─ */
+.bill-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:2.75rem}
+.bl{font-size:.9375rem;color:var(--t3);font-weight:500;transition:color .15s}
+.bl.on{color:var(--navy);font-weight:700}
+.tog{position:relative;width:50px;height:26px;background:#cbd5e1;border-radius:13px;cursor:pointer;transition:background .18s;flex-shrink:0}
+.tog.on{background:var(--teal3)}
+.tog-k{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.18);transition:left .2s}
+.tog.on .tog-k{left:27px}
+.save-b{background:rgba(23,184,155,.1);color:var(--teal3);font-size:.72rem;font-weight:800;padding:.2rem .75rem;border-radius:20px;border:1px solid rgba(23,184,155,.22)}
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+.plan{background:#fff;border:1.5px solid var(--bdr);border-radius:var(--r);padding:1.875rem 1.5rem;position:relative;transition:all .22s;display:flex;flex-direction:column}
+.plan:hover{box-shadow:var(--sh3);transform:translateY(-5px)}
+.plan.pop{border-color:var(--teal3);border-width:2px;background:linear-gradient(180deg,rgba(23,184,155,.04),#fff)}
+.plan.ent{background:linear-gradient(155deg,#060e1f,var(--navy2));border-color:rgba(23,184,155,.2)}
+.plan-bdg{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--teal),var(--teal2));color:#fff;font-size:.72rem;font-weight:700;padding:.35rem 1rem;border-radius:20px;white-space:nowrap;box-shadow:0 4px 12px rgba(23,184,155,.35)}
+.plan-n{font-family:'Sora',sans-serif;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:.75rem}
+.plan.ent .plan-n{color:rgba(255,255,255,.4)}
+.plan-p{font-family:'Sora',sans-serif;font-size:2.625rem;font-weight:900;color:var(--navy);letter-spacing:-.06em;line-height:1}
+.plan.ent .plan-p{color:rgba(226,250,246,.95)}
+.plan-p sup{font-size:1.0625rem;vertical-align:top;margin-top:.5rem;font-weight:600;color:var(--t3)}
+.plan.ent .plan-p sup{color:rgba(226,250,246,.6)}
+.plan-p small{font-size:.875rem;font-weight:400;color:var(--t3)}
+.plan.ent .plan-p small{color:rgba(255,255,255,.3)}
+.plan-per{font-size:.82rem;color:var(--t3);margin:.35rem 0 .75rem;line-height:1.4}
+.plan.ent .plan-per{color:rgba(255,255,255,.35)}
+.plan-tl{font-size:.82rem;color:var(--t3);line-height:1.5;margin-bottom:1.125rem;min-height:2.5em}
+.plan.ent .plan-tl{color:rgba(255,255,255,.3)}
+.plan-div{width:100%;height:1px;background:var(--bdr);margin-bottom:1.125rem}
+.plan.ent .plan-div{background:rgba(255,255,255,.1)}
+.plan-fs{flex:1;display:flex;flex-direction:column;gap:.575rem;margin-bottom:1.5rem}
+.pf{display:flex;align-items:flex-start;gap:.5rem;font-size:.875rem;color:var(--t2);line-height:1.45}
+.pf::before{content:'✓';color:var(--teal3);font-weight:800;flex-shrink:0;font-size:.8rem;margin-top:.1rem}
+.pf.no{color:var(--t4)}
+.pf.no::before{content:'–';color:#d1d9e6;font-weight:400}
+.plan.ent .pf{color:rgba(255,255,255,.7)}
+.plan.ent .pf::before{color:rgba(226,250,246,.8)}
+.plan-cta{display:block;width:100%;padding:.9375rem;border-radius:10px;font-size:.9375rem;font-weight:700;text-align:center;cursor:pointer;transition:all .18s;font-family:'DM Sans',sans-serif;margin-top:auto;border:none}
+.pc-t{background:linear-gradient(135deg,var(--teal),var(--teal2));color:#fff;box-shadow:0 4px 14px rgba(23,184,155,.32)}
+.pc-t:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(23,184,155,.45)}
+.pc-o{background:transparent;color:var(--navy);border:1.5px solid var(--bdr2)}
+.pc-o:hover{border-color:var(--teal3);color:var(--teal3)}
+.pc-d{background:rgba(23,184,155,.12);color:rgba(226,250,246,.9);border:1.5px solid rgba(23,184,155,.3)}
+.pc-d:hover{background:rgba(23,184,155,.2)}
+/* Add-ons */
+.aos{display:grid;grid-template-columns:repeat(4,1fr);gap:.875rem;margin-top:2.25rem}
+.ao{background:var(--off);border:1px solid var(--bdr);border-radius:var(--r2);padding:1.25rem;text-align:center;transition:all .18s}
+.ao:hover{background:#fff;box-shadow:var(--sh1)}
+.ao-ic{font-size:1.5rem;margin-bottom:.5rem}
+.ao-n{font-family:'Sora',sans-serif;font-size:.875rem;font-weight:700;color:var(--navy);margin-bottom:.25rem}
+.ao-p{font-family:'Sora',sans-serif;font-size:1.25rem;font-weight:900;color:var(--teal3)}
+.ao-p small{font-size:.78rem;font-weight:400;color:var(--t3)}
+.ao-d{font-size:.72rem;color:var(--t3);margin-top:.2rem;line-height:1.4}
+/* ─ COMPARE TABLE ─ */
+.cmp-scroll{overflow-x:auto;border-radius:var(--r);box-shadow:var(--sh2);border:1px solid var(--bdr)}
+.cmp-t{width:100%;border-collapse:collapse;min-width:620px;background:#fff}
+.cmp-t thead tr{background:linear-gradient(135deg,var(--navy),var(--navy2))}
+.cth{padding:.875rem 1.125rem;text-align:center;font-size:.85rem;font-weight:700;font-family:'Sora',sans-serif;color:rgba(255,255,255,.45)}
+.cth:first-child{text-align:left;font-size:.78rem;font-weight:500;color:rgba(255,255,255,.32);width:32%}
+.cth.us{color:rgba(226,250,246,.95);background:rgba(23,184,155,.15)}
+.cth.us .cth-price{font-size:1rem;font-weight:900;color:rgba(226,250,246,.95)}
+.cth-sub{display:block;font-size:.65rem;font-weight:500;margin-top:2px;opacity:.7}
+.ctd{padding:.75rem 1.125rem;border-bottom:1px solid var(--bdr);font-size:.875rem;color:var(--text);vertical-align:middle;line-height:1.4}
+.ctd:not(:first-child){text-align:center}
+.ctd.us-col{background:rgba(23,184,155,.03)}
+.cmp-t tbody tr:nth-child(even){background:rgba(11,30,69,.02)}
+.cmp-t tbody tr:nth-child(even) .ctd.us-col{background:rgba(23,184,155,.05)}
+.cmp-t tbody tr:hover{background:var(--off)}
+.c-yes{color:var(--teal3);font-weight:700;font-size:1rem}
+.c-no{color:#dc2626;font-size:1rem;font-weight:700}
+.c-part{color:#d97706;font-size:.8125rem;font-weight:600}
+.c-us{color:var(--teal3);font-size:.8125rem;font-weight:700}
+.c-bold{font-weight:700;color:var(--navy)}
+/* ─ CTA ─ */
+.cta-s{padding:6.5rem 0;background:linear-gradient(148deg,#060e1f 0%,#0f2d65 45%,#0b1e45 100%);position:relative;overflow:hidden;text-align:center}
+.cta-s::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:650px;height:650px;border-radius:50%;background:radial-gradient(circle,rgba(23,184,155,.12),transparent 70%);pointer-events:none}
+.cta-in{position:relative;z-index:1}
+.cta-h{font-size:clamp(2.25rem,4vw,3.25rem);font-weight:900;color:#fff;letter-spacing:-.045em;margin:1.25rem auto;max-width:660px}
+.cta-p{font-size:1.0625rem;color:rgba(255,255,255,.56);max-width:460px;margin:0 auto 2.375rem;line-height:1.74}
+.cta-btns{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
+.cta-tr{display:flex;justify-content:center;gap:1.75rem;margin-top:2rem;flex-wrap:wrap}
+.cta-ti{display:flex;align-items:center;gap:.5rem;font-size:.875rem;color:rgba(255,255,255,.4)}
+.cta-ti em{color:rgba(226,250,246,.8);font-style:normal}
+/* ─ FOOTER ─ */
+footer{background:#040c1a;padding:3.75rem 0 2rem}
+.ft-in{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2.75rem}
+.ft-bn{font-family:'Sora',sans-serif;font-weight:800;font-size:1.0625rem;color:#fff}
+.ft-bn span{display:block;font-size:.64rem;color:rgba(23,184,155,.7);font-weight:500;letter-spacing:.1em;text-transform:uppercase}
+.ft-d{font-size:.9375rem;color:rgba(255,255,255,.28);margin-top:.75rem;line-height:1.72}
+.ft-badges{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}
+.ft-b{padding:.275rem .6rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:4px;font-size:.67rem;font-weight:600;color:rgba(255,255,255,.32)}
+.ft-ch{font-family:'Sora',sans-serif;font-size:.75rem;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.1em;margin-bottom:1.125rem}
+.ft-ls{display:flex;flex-direction:column;gap:.575rem}
+.ft-ls a{font-size:.9rem;color:rgba(255,255,255,.3);transition:color .18s}
+.ft-ls a:hover{color:rgba(23,184,155,.8)}
+.ft-bot{border-top:1px solid rgba(255,255,255,.05);padding-top:1.75rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.875rem}
+.ft-cp{font-size:.875rem;color:rgba(255,255,255,.2)}
+/* ─ ANIMATIONS ─ */
+@keyframes fA{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-10px) rotate(.5deg)}}
+@keyframes fB{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+/* ─ MOBILE ─ */
+@media(max-width:1024px){
+  .hero-in,.bk-in,.nhs-in{grid-template-columns:1fr}
+  .hero-right{display:none}
+  .feat-grid{grid-template-columns:1fr 1fr}
+  .fc-wide{grid-template-columns:1fr}
+  .plans{grid-template-columns:1fr 1fr}
+  .aos{grid-template-columns:1fr 1fr}
+  .t-grid{grid-template-columns:1fr 1fr}
+  .sec-grid{grid-template-columns:1fr 1fr}
+  .ft-in{grid-template-columns:1fr 1fr}
+  .steps::before{display:none}
+  .stats-r{flex-wrap:wrap}
+  .stat{flex:0 0 50%;border-bottom:1px solid var(--bdr)}
+  .stat:nth-child(even){border-right:none}
+}
+@media(max-width:768px){
+  .nav-l,.nav-c{display:none}
+  .burger{display:flex}
+  .h1{font-size:2.125rem}
+  .sec-h{font-size:1.875rem}
+  .cta-h{font-size:2rem}
+  .sec{padding:3.75rem 0}
+  .hero{padding:5.5rem 0 3rem}
+  .feat-grid,.plans,.sec-grid{grid-template-columns:1fr}
+  .aos{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr}
+  .t-grid{grid-template-columns:1fr}
+  .ft-in{grid-template-columns:1fr}
+  .stats-r{flex-direction:column}
+  .stat{border-right:none}
+  .hero-acts,.cta-btns{flex-direction:column;align-items:flex-start}
+  .hero-acts .btn,.cta-btns .btn{width:100%;justify-content:center}
+  .ft-bot{flex-direction:column;text-align:center}
+  .cert-bar{flex-direction:column;align-items:flex-start;gap:.875rem}
+}
+@media(max-width:480px){
+  .aos{grid-template-columns:1fr 1fr}
+  .plans{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="drawer" id="dr">
+  <button class="d-close" onclick="cD()">✕</button>
+  <a href="#features" onclick="cD()">Features</a>
+  <a href="#booking" onclick="cD()">Online Booking</a>
+  <a href="#pricing" onclick="cD()">Pricing</a>
+  <a href="#nhs" onclick="cD()">NHS</a>
+  <a href="#security" onclick="cD()">Security</a>
+  <a href="#compare" onclick="cD()">Compare</a>
+  <a href="#reviews" onclick="cD()">Reviews</a>
+  <a href="#contact" class="btn btn-p" onclick="cD()" style="margin-top:1rem;justify-content:center">Start free 30-day trial</a>
+</div>
+<nav>
+  <div class="W">
+    <div class="nav-r">
+      <a href="#" class="logo">
+        <div class="logo-ic">🦷</div>
+        <div class="logo-n">Pro Dental Connect<span>UK Practice Software</span></div>
+      </a>
+      <div class="nav-l">
+        <a href="#features">Features</a><a href="#booking">Booking</a>
+        <a href="#pricing">Pricing</a><a href="#nhs">NHS</a>
+        <a href="#security">Security</a><a href="#compare">Compare</a>
+        <a href="#reviews">Reviews</a>
+      </div>
+      <div class="nav-c">
+        <a href="#pricing" class="btn btn-o btn-sm">Pricing</a>
+        <a href="#contact" class="btn btn-p btn-sm">Free 30-day trial</a>
+      </div>
+      <button class="burger" onclick="oD()"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="grid-bg"></div>
+  <div class="W">
+    <div class="hero-in">
+      <div>
+        <div class="hero-badge">🇬🇧 Built for UK dental practices</div>
+        <h1 class="h1">Run your practice smarter — on <span class="acc">one platform</span></h1>
+        <p class="hero-sub">Complete UK dental practice management. NHS FP17, AI voice notes, online booking with deposits, 3D tooth charts, Microsoft Teams-style chat, and real-time KPI analytics — all in one system.</p>
+        <div class="hero-acts">
+          <a href="#contact" class="btn btn-p btn-lg">Start free 30-day trial</a>
+          <a href="#features" class="btn btn-o btn-lg">See all features</a>
+        </div>
+        <div class="chips">
+          <div class="chip">🏥 NHSBSA WebEDI</div>
+          <div class="chip">🔐 AES-256</div>
+          <div class="chip">✅ Cyber Essentials</div>
+          <div class="chip">☁ UK Hosted</div>
+          <div class="chip">⭐ GDC Aligned</div>
+        </div>
+        <div class="hero-cmp">
+          <div class="cmp-chip">5–10% below every competitor tier</div>
+          <div class="cmp-chip">70% cheaper than CareStack</div>
+        </div>
+      </div>
+      <div class="hero-right" style="position:relative">
+        <div class="mock-wrap">
+          <div class="mock-bar">
+            <div class="mock-dot" style="background:#ef4444"></div>
+            <div class="mock-dot" style="background:#f59e0b"></div>
+            <div class="mock-dot" style="background:#10b981"></div>
+          </div>
+          <div class="mock-screen">
+            <div class="m-top"><div class="m-logo">Pro<em>Dental</em></div><div class="m-sp"></div><div class="m-av"></div></div>
+            <div class="m-nav">
+              <div class="m-ni on">Dashboard</div><div class="m-ni">Patients</div>
+              <div class="m-ni">Calendar</div><div class="m-ni">NHS</div><div class="m-ni">Reports</div>
+            </div>
+            <div class="m-kpis">
+              <div class="m-kpi" style="border-color:#10b981"><div class="m-kv">22</div><div class="m-kl">Today</div><div class="m-kc" style="color:#10b981">↑ +4</div></div>
+              <div class="m-kpi" style="border-color:#ef4444"><div class="m-kv">1</div><div class="m-kl">DNA</div><div class="m-kc" style="color:#f59e0b">⚡ Filling</div></div>
+              <div class="m-kpi" style="border-color:#005eb8"><div class="m-kv">847</div><div class="m-kl">UDAs</div><div class="m-kc" style="color:#005eb8">77%</div></div>
+            </div>
+            <div class="m-alert">📅 3 booking requests · <u>Review →</u></div>
+            <div class="m-rows">
+              <div class="m-row" style="background:#f0fdf4;color:#166534">✓ 09:00 Sarah Mitchell — Exam + Scale</div>
+              <div class="m-row" style="background:#fffbeb;color:#92400e">⚡ 10:30 DNA — short notice filler sent</div>
+              <div class="m-row" style="background:#eff6ff;color:#1d4ed8">🏥 FP17 · 4 claims submitted · 0 errors</div>
+            </div>
+          </div>
+        </div>
+        <div class="pill p1"><div class="pill-ic" style="background:#dcfce7">✓</div><div><div class="pill-t">FP17 Accepted</div><div class="pill-s">Band 2 · NHSBSA</div></div></div>
+        <div class="pill p2"><div class="pill-ic" style="background:#fef3c7">🎙️</div><div><div class="pill-t">AI note ready</div><div class="pill-s">GDC compliant · 8s</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar"><div class="W"><div class="stats-r">
+  <div class="stat"><div class="s-n">99%</div><div class="s-l">FP17 acceptance rate</div></div>
+  <div class="stat"><div class="s-n">£400</div><div class="s-l">One-time setup fee</div></div>
+  <div class="stat"><div class="s-n">3s</div><div class="s-l">Avg claim submission</div></div>
+  <div class="stat"><div class="s-n">24h</div><div class="s-l">Live in under 24 hours</div></div>
+</div></div></div>
+
+<!-- FEATURES -->
+<section class="sec bg-off" id="features">
+  <div class="W">
+    <div class="sec-tag"><span class="tag tag-t">Everything you need</span></div>
+    <h2 class="sec-h">One platform. Every feature your practice needs.</h2>
+    <p class="sec-sub">From NHS FP17 to AI X-ray analysis, CQC toolkit to treatment finance, digital consent to review automation — 15 unique features no competitor offers.</p>
+    <div style="display:flex;justify-content:center;gap:.625rem;flex-wrap:wrap;margin-bottom:2.5rem">
+      <span style="padding:.28rem .85rem;background:#f1f5f9;border:1px solid var(--bdr);border-radius:20px;font-size:.72rem;font-weight:700;color:var(--t3)">🟢 Starter · £199/surgery/mo</span>
+      <span style="padding:.28rem .85rem;background:#f0fdf4;border:1px solid rgba(23,184,155,.2);border-radius:20px;font-size:.72rem;font-weight:700;color:var(--teal3)">🔵 Professional · £259/surgery/mo</span>
+      <span style="padding:.28rem .85rem;background:rgba(23,184,155,.09);border:1px solid rgba(23,184,155,.28);border-radius:20px;font-size:.72rem;font-weight:800;color:var(--teal2)">⭐ Growth · £289/surgery/mo</span>
+      <span style="padding:.28rem .85rem;background:rgba(11,30,69,.06);border:1px solid rgba(11,30,69,.13);border-radius:20px;font-size:.72rem;font-weight:700;color:var(--navy2)">🏆 Enterprise · £629/mo</span>
+    </div>
+    <div class="feat-grid">
+      <!-- Row 1: 3 equal cards -->
+      <div class="fc">
+        <div class="fc-ico ico-b">🏥</div>
+        <div class="fc-plan" style="background:#eff6ff;color:#1d4ed8">🟢 All plans</div>
+        <h3 class="fc-h">NHS FP17 &amp; GP17 Claims</h3>
+        <p class="fc-p">Direct NHSBSA WebEDI submission in 3 seconds. Pre-validation catches every error. Scotland GP17 fully supported. 99% acceptance rate.</p>
+        <span class="fc-link">→ UDA tracking · Clawback alerts · Care Package 2026</span>
+      </div>
+      <div class="fc">
+        <div class="fc-ico ico-t">🎙️</div>
+        <div class="fc-plan" style="background:#f0fdf4;color:var(--teal3)">🔵 Professional+ or +£25/mo</div>
+        <h3 class="fc-h">AI Voice Clinical Notes</h3>
+        <p class="fc-p">Dictate during the appointment. AI structures GDC-compliant SOAP notes in under 10 seconds. Saves 2+ hours per clinician per week.</p>
+        <span class="fc-link">→ GDC compliant · Auto-timestamped · Instant</span>
+      </div>
+      <div class="fc">
+        <div class="fc-ico ico-b">🧠</div>
+        <div class="fc-plan" style="background:#eff6ff;color:#1d4ed8">🔵 Professional+</div>
+        <h3 class="fc-h">AI X-ray Analysis</h3>
+        <p class="fc-p">Upload any X-ray and AI detects caries, bone loss, calculus and periapical lesions in seconds with confidence scores. No competitor includes this.</p>
+        <span class="fc-link">→ Bitewing · Periapical · OPG · Auto-logged</span>
+      </div>
+      <!-- Full-width Team Chat card -->
+      <div class="fc span3 dark">
+        <div class="fc-wide">
+          <div>
+            <div class="fc-ico ico-t" style="background:rgba(23,184,155,.18);border-color:rgba(23,184,155,.38)">💬</div>
+            <div class="fc-plan" style="background:rgba(23,184,155,.18);color:#5ee8d8;margin-bottom:.75rem">⭐ Growth+</div>
+            <h3 class="fc-h">Team Chat &amp; MS Teams-Style Notifications</h3>
+            <p class="fc-p" style="max-width:500px">Microsoft Teams-style internal chat built into the platform. Pop-up notifications slide in from the corner and auto-dismiss after 5 seconds with a soft ding. Clinical urgency tags, direct messages, typing indicators and unread badges included. Unique to Pro Dental Connect — no UK competitor has this.</p>
+            <span class="fc-link" style="color:rgba(226,250,246,.8)">→ Pop-up alerts · Sound on/off · Clinical tags · Direct messages</span>
+          </div>
+          <div class="fc-screen">
+            <div class="fcs-bar"><div class="fcs-dot"></div><div class="fcs-dot"></div><div class="fcs-dot"></div></div>
+            <div style="padding:.5rem">
+              <div class="fcs-row" style="background:rgba(23,184,155,.12);color:#5ee8d8">💬 # all-staff · 5 online</div>
+              <div class="fcs-row" style="background:rgba(239,68,68,.1);color:#f87171">🚨 Janet: BP high — room 3</div>
+              <div class="fcs-row" style="background:rgba(96,165,250,.1);color:#60a5fa">Dr Patel: Reschedule + refer GP</div>
+              <div class="fcs-row" style="background:rgba(251,191,36,.08);color:#fbbf24">🔔 Pop-up · Ding · Auto-dismiss</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Row 3 -->
+      <div class="fc">
+        <div class="fc-ico ico-t">⚡</div>
+        <div class="fc-plan" style="background:rgba(23,184,155,.09);color:var(--teal2)">⭐ Growth+</div>
+        <h3 class="fc-h">Short Notice Filler</h3>
+        <p class="fc-p">DNA at 10:30? System instantly fires WhatsApp + SMS to fill the slot from your recall list. Practices recover £8,000+/month. Zero manual work.</p>
+        <span class="fc-link">→ Auto DNA recovery · WhatsApp + SMS</span>
+      </div>
+      <div class="fc">
+        <div class="fc-ico ico-n">📅</div>
+        <div class="fc-plan" style="background:rgba(23,184,155,.09);color:var(--teal2)">⭐ Growth+</div>
+        <h3 class="fc-h">Online Booking + Deposits</h3>
+        <p class="fc-p">Patients book 24/7. Require a Stripe deposit to eliminate no-shows. You approve every request. DNA rates drop from 12% to under 3%.</p>
+        <span class="fc-link">→ Deposits · Approval workflow · Stripe</span>
+      </div>
+      <div class="fc">
+        <div class="fc-ico ico-t">✍️</div>
+        <div class="fc-plan" style="background:rgba(23,184,155,.09);color:var(--teal2)">⭐ Growth+</div>
+        <h3 class="fc-h">Digital Consent Forms</h3>
+        <p class="fc-p">Send GDC-compliant consent forms via WhatsApp or email. Patients sign on a tablet in the chair. Auto-attached to patient record. E-signature legally valid.</p>
+        <span class="fc-link">→ E-signature · WhatsApp send · Auto-filed</span>
+      </div>
+      <!-- Row 4 -->
+      <div class="fc">
+        <div class="fc-ico ico-b">🏛️</div>
+        <div class="fc-plan" style="background:#eff6ff;color:#1d4ed8">⭐ Growth+</div>
+        <h3 class="fc-h">CQC Compliance Toolkit</h3>
+        <p class="fc-p">All 5 KLOEs with real CQC criteria. Staff CPD matrix, SOP policy library, evidence log, compliance calendar, email alerts and mock inspection scoring. Admin controls staff access. dental-compliance.co.uk charges £100+/month for software only — ours is £60 and integrated.</p>
+        <span class="fc-link">→ 5 KLOEs · Mock inspection · Evidence log</span>
+      </div>
+      <div class="fc">
+        <div class="fc-ico ico-a">⭐</div>
+        <div class="fc-plan" style="background:rgba(240,161,0,.1);color:#92600a">⭐ Growth+</div>
+        <h3 class="fc-h">Review Automation</h3>
+        <p class="fc-p">Automatically prompt patients to leave Google or Trustpilot reviews after appointments. Practices see 4× more reviews. 41% conversion rate vs industry 12%.</p>
+        <span class="fc-link">→ Google · Trustpilot · 4h auto-send</span>
+      </div>
+      <div class="fc">
+        <div class="fc-ico ico-n">💰</div>
+        <div class="fc-plan" style="background:rgba(23,184,155,.09);color:var(--teal2)">⭐ Growth+</div>
+        <h3 class="fc-h">Treatment Finance</h3>
+        <p class="fc-p">Send Payl8r, Medenta and Novuna finance applications directly from the treatment plan. Built-in finance calculator. 83% approval rate. Implants and ortho made affordable.</p>
+        <span class="fc-link">→ Payl8r · Medenta · Novuna · 0% APR</span>
+      </div>
+      <!-- Row 5 -->
+      <div class="fc">
+        <div class="fc-ico ico-t">🔄</div>
+        <div class="fc-plan" style="background:rgba(23,184,155,.09);color:var(--teal2)">⭐ Growth+</div>
+        <h3 class="fc-h">Automated Recall Sequences</h3>
+        <p class="fc-p">Multi-step recall campaigns: Day 0 email → Day 7 SMS → Day 14 WhatsApp. 67% open rate vs industry 21%. Recall revenue tracked per sequence.</p>
+        <span class="fc-link">→ Email → SMS → WhatsApp · Tracked</span>
+      </div>
+      <div class="fc">
+        <div class="fc-ico ico-b">🔗</div>
+        <div class="fc-plan" style="background:#eff6ff;color:#1d4ed8">🔵 Professional+</div>
+        <h3 class="fc-h">Xero &amp; Accounting Integration</h3>
+        <p class="fc-p">Sync NHS payment schedules, private invoices and lab costs to Xero or QuickBooks automatically. Saves practice managers hours of manual reconciliation weekly.</p>
+        <span class="fc-link">→ Xero · QuickBooks · NHS schedules</span>
+      </div>
+      <div class="fc">
+        <div class="fc-ico ico-n">🔀</div>
+        <div class="fc-plan" style="background:rgba(23,184,155,.09);color:var(--teal2)">⭐ Growth+</div>
+        <h3 class="fc-h">Referral Network Tracker</h3>
+        <p class="fc-p">Track patient referrals to specialists. Monitor wait times, outcomes and return rates. Generate digital referral letters. 78% of referred patients return to your practice.</p>
+        <span class="fc-link">→ Specialists · Outcomes · Return tracking</span>
+      </div>
+      <!-- Row 6 -->
+      <div class="fc">
+        <div class="fc-ico ico-n">🦷</div>
+        <div class="fc-plan" style="background:rgba(23,184,155,.09);color:var(--teal2)">⭐ Growth+</div>
+        <h3 class="fc-h">3D Interactive Tooth Chart</h3>
+        <p class="fc-p">Show patients their treatment in 3D with anatomically correct roots. Mark conditions in real-time while they watch. Increases private treatment acceptance significantly.</p>
+        <span class="fc-link">→ All 32 teeth · Roots · Real-time</span>
+      </div>
+      <div class="fc">
+        <div class="fc-ico ico-t">📱</div>
+        <div class="fc-plan" style="background:rgba(23,184,155,.09);color:var(--teal2)">🏆 Enterprise</div>
+        <h3 class="fc-h">Patient Mobile App</h3>
+        <p class="fc-p">Branded iOS and Android app — patients book, pay invoices, sign consent forms and view treatment plans. 4.9⭐ App Store rating. 31% of bookings made via app.</p>
+        <span class="fc-link">→ iOS · Android · Branded · Booking</span>
+      </div>
+      <div class="fc">
+        <div class="fc-ico ico-b">🔐</div>
+        <div class="fc-plan" style="background:#eff6ff;color:#1d4ed8">🟢 All plans</div>
+        <h3 class="fc-h">2FA + Bank-Level Security</h3>
+        <p class="fc-p">Two-factor authentication on every login. AES-256 encryption, TLS 1.3, UK GDPR Article 25, Cyber Essentials certified, annual CREST pen testing. UK-hosted only.</p>
+        <span class="fc-link">→ 2FA · AES-256 · CREST tested · UK only</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section class="sec" id="how-it-works">
+  <div class="W">
+    <div class="sec-tag"><span class="tag tag-n">Simple setup</span></div>
+    <h2 class="sec-h">Up and running in under 24 hours</h2>
+    <p class="sec-sub">No IT team needed. Our onboarding specialists manage everything — data migration, setup and training — so you're live the same day.</p>
+    <div class="steps">
+      <div class="step"><div class="step-n">1</div><h3 class="step-h">Start your free trial</h3><p class="step-p">Sign up in 2 minutes. No credit card, no contracts. 30 days of Growth plan — every feature unlocked — to test with real patients before committing.</p></div>
+      <div class="step"><div class="step-n">2</div><h3 class="step-h">Pay setup &amp; migrate</h3><p class="step-p">One-time setup fee of £400 includes dedicated onboarding specialist, system configuration and online training. Data migration from £199–£499 depending on complexity (SOE charges £575, Dentally charges more).</p></div>
+      <div class="step"><div class="step-n">3</div><h3 class="step-h">Go live · Same day</h3><p class="step-p">System ready before your first morning patient. UK support team available live during your first week. Average onboarding time: under 4 hours total.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="bk" id="booking">
+  <div class="W">
+    <div class="bk-in">
+      <div>
+        <div class="bw">
+          <div class="bw-hd"><div class="bw-t">Maple Dental — Book online</div><div class="bw-s">Next available: Today · 14:00</div><div class="bw-prog"><div class="bw-stp on"></div><div class="bw-stp on"></div><div class="bw-stp"></div><div class="bw-stp"></div></div></div>
+          <div class="bw-b">
+            <div class="bw-types">
+              <div class="bw-type sel"><div class="bt-ic">🦷</div><div class="bt-n">NHS Exam</div><div class="bt-p">Band 1 · £26.80</div></div>
+              <div class="bw-type"><div class="bt-ic">✨</div><div class="bt-n">Whitening</div><div class="bt-p">Private · £350</div></div>
+              <div class="bw-type"><div class="bt-ic">🔬</div><div class="bt-n">Hygiene</div><div class="bt-p">Private · £95</div></div>
+              <div class="bw-type"><div class="bt-ic">🆘</div><div class="bt-n">Emergency</div><div class="bt-p">NHS · £26.80</div></div>
+            </div>
+            <div class="bw-dep"><em>£25 deposit required</em> — Applied to treatment. Non-refundable if cancelled &lt;24 hours.</div>
+            <button class="bw-btn">Choose a time →</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="tag tag-w" style="margin-bottom:1.375rem;display:inline-flex">📅 Online booking · Growth plan</span>
+        <h2 style="font-size:clamp(1.875rem,2.5vw,2.5rem);font-weight:800;color:#fff;letter-spacing:-.04em;line-height:1.1;margin-bottom:.875rem">Stop losing patients<br>to missed calls</h2>
+        <p style="font-size:1rem;color:rgba(255,255,255,.55);line-height:1.72;margin-bottom:1.625rem">Patients book 24/7. Deposits eliminate no-shows. You approve every request before it enters the diary.</p>
+        <div class="bk-feats">
+          <div class="bf"><div class="bf-ic">✓</div><div><div class="bf-h">Accept, reject or amend</div><div class="bf-p">Review every request. Change doctor, time or treatment. Patient notified instantly by SMS and email.</div></div></div>
+          <div class="bf"><div class="bf-ic">💳</div><div><div class="bf-h">Payment links &amp; deposits</div><div class="bf-p">Require a deposit before confirming — Stripe link in one click. Auto-applied to treatment cost.</div></div></div>
+          <div class="bf"><div class="bf-ic">👤</div><div><div class="bf-h">Preferred dentist or "next available"</div><div class="bf-p">Patients choose their dentist or auto-assign to the first free provider. Override at any time.</div></div></div>
+          <div class="bf"><div class="bf-ic">🔧</div><div><div class="bf-h">Enable or disable instantly</div><div class="bf-p">Toggle on/off in one click. Restrict by provider, appointment type, new vs existing, or time window.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NHS -->
+<section class="sec bg-navy" id="nhs">
+  <div class="W">
+    <div class="nhs-in">
+      <div>
+        <div class="nhs-bdg">🏥 NHS England · Wales · Scotland</div>
+        <h2 class="nhs-h">Complete NHS compliance,<br>built in from day one.</h2>
+        <p class="nhs-p">Designed around NHS workflows — FP17 to UDA tracking, care packages to exemption validation. Everything NHSBSA needs, nothing it doesn't.</p>
+        <div class="nhs-fs">
+          <div class="nhs-f"><div class="nhs-dot"></div>FP17 direct WebEDI submission — 99% acceptance rate</div>
+          <div class="nhs-f"><div class="nhs-dot"></div>Real-time UDA tracking with clawback risk alerts per clinician</div>
+          <div class="nhs-f"><div class="nhs-dot"></div>Scotland GP17 fully supported — unique in UK market</div>
+          <div class="nhs-f"><div class="nhs-dot"></div>NHS Care Package 2026 ready — new bands, lab fees, warranties</div>
+          <div class="nhs-f"><div class="nhs-dot"></div>Exemption validation — HC2, under-18, maternity and more</div>
+          <div class="nhs-f"><div class="nhs-dot"></div>Pre-submission validation catches all errors before NHSBSA</div>
+        </div>
+      </div>
+      <div>
+        <div class="nhs-stats">
+          <div class="nhs-st"><div class="nhs-num">99%</div><div class="nhs-lbl">FP17 acceptance</div></div>
+          <div class="nhs-st"><div class="nhs-num">3s</div><div class="nhs-lbl">Avg submission</div></div>
+          <div class="nhs-st"><div class="nhs-num">2026</div><div class="nhs-lbl">Care pkg ready</div></div>
+          <div class="nhs-st"><div class="nhs-num">24h</div><div class="nhs-lbl">Live in</div></div>
+        </div>
+        <div class="nhs-care">
+          <div class="nhs-care-t">NHS Care Package — April 2026</div>
+          <p class="nhs-care-p">Fully ready. Automatic care package calculation, lab fee recording, warranty tracking and new claim form — built before the April 2026 deadline.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECURITY -->
+<section class="sec bg-off" id="security">
+  <div class="W">
+    <div class="sec-tag"><span class="tag tag-n">Enterprise security</span></div>
+    <h2 class="sec-h">Bank-level security. NHS-grade compliance.</h2>
+    <p class="sec-sub">Every layer encrypted, certified and independently tested. Patient data never leaves UK jurisdiction.</p>
+    <div class="sec-grid">
+      <div class="sec-card"><div class="sc-ico" style="background:rgba(23,184,155,.1);border:1px solid rgba(23,184,155,.2)">🔐</div><div><div class="sc-h">AES-256 Encryption</div><div class="sc-p">All data encrypted at rest with AES-256-GCM. In transit with TLS 1.3. Encryption keys auto-rotated every 90 days.</div></div></div>
+      <div class="sec-card"><div class="sc-ico" style="background:rgba(11,30,69,.06);border:1px solid rgba(11,30,69,.1)">🛡️</div><div><div class="sc-h">UK GDPR Article 25</div><div class="sc-p">Privacy by design. Built-in Subject Access Request tooling, right to erasure, data minimisation and full ICO compliance documentation.</div></div></div>
+      <div class="sec-card"><div class="sc-ico" style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.14)">🧪</div><div><div class="sc-h">Annual CREST Pen Testing</div><div class="sc-p">Independent CREST-certified penetration testing every 12 months. All critical findings resolved before production deployment.</div></div></div>
+      <div class="sec-card"><div class="sc-ico" style="background:rgba(23,184,155,.1);border:1px solid rgba(23,184,155,.2)">🔒</div><div><div class="sc-h">ISO 27001 Aligned</div><div class="sc-p">ISMS aligned to ISO 27001. Risk assessment, access control, incident response and business continuity all documented.</div></div></div>
+      <div class="sec-card"><div class="sc-ico" style="background:rgba(240,161,0,.08);border:1px solid rgba(240,161,0,.18)">✅</div><div><div class="sc-h">Cyber Essentials Certified</div><div class="sc-p">UK Government Cyber Essentials. Firewall, secure configuration, access control, malware and patch management — all verified annually.</div></div></div>
+      <div class="sec-card"><div class="sc-ico" style="background:rgba(0,94,184,.08);border:1px solid rgba(0,94,184,.15)">☁️</div><div><div class="sc-h">UK-Only Data Storage</div><div class="sc-p">All patient data in UK data centres exclusively. Never leaves UK. Daily backups with 30-day point-in-time recovery.</div></div></div>
+    </div>
+    <div class="cert-bar">
+      <span class="cert-lbl">Certified &amp; compliant</span>
+      <div class="certs">
+        <span class="cert">🏥 NHSBSA WebEDI</span><span class="cert">🔐 AES-256</span>
+        <span class="cert">🛡️ UK GDPR</span><span class="cert">🔒 ISO 27001</span>
+        <span class="cert">✅ Cyber Essentials</span><span class="cert">🧪 CREST Pen Tested</span>
+        <span class="cert">☁ UK Hosted Only</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sec" id="reviews">
+  <div class="W">
+    <div class="sec-tag"><span class="tag tag-t">What practices say</span></div>
+    <h2 class="sec-h">Loved by dentists across the UK</h2>
+    <p class="sec-sub">From solo practitioners to multi-site groups — trusted by dental teams who want less admin and more time with patients.</p>
+    <div class="t-grid">
+      <div class="tc"><div class="tc-stars">★★★★★</div><p class="tc-q">"FP17 submission saves us 2 hours every week. Pre-validation catches every error before NHSBSA — no rejections in 3 months."</p><div class="tc-auth"><div class="tc-av" style="background:linear-gradient(135deg,#1d4ed8,#3b82f6)">RP</div><div><div class="tc-n">Dr. Ravi Patel</div><div class="tc-r">Principal Dentist · Manchester</div><div class="tc-bdg" style="background:#eff6ff;color:#1d4ed8">🏥 NHS + Private</div></div></div></div>
+      <div class="tc"><div class="tc-stars">★★★★★</div><p class="tc-q">"Online booking with deposits eliminated our DNA problem. £25 deposit for high-risk patients — DNAs dropped from 12% to under 3%."</p><div class="tc-auth"><div class="tc-av" style="background:linear-gradient(135deg,#059669,#34d399)">LC</div><div><div class="tc-n">Dr. Lisa Chen</div><div class="tc-r">Practice Owner · Birmingham</div><div class="tc-bdg" style="background:#f0fdf4;color:#166534">↓ DNA rate 75%</div></div></div></div>
+      <div class="tc"><div class="tc-stars">★★★★★</div><p class="tc-q">"Switched from SOE after 8 years. Short notice filler recovered over £8,000 in lost revenue in the first month alone."</p><div class="tc-auth"><div class="tc-av" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">SM</div><div><div class="tc-n">Sarah Morrison</div><div class="tc-r">Practice Manager · Edinburgh</div><div class="tc-bdg" style="background:#f5f3ff;color:#5b21b6">£8k month 1</div></div></div></div>
+      <div class="tc"><div class="tc-stars">★★★★★</div><p class="tc-q">"3 sites, one login. The team chat transformed how we communicate across sites. Pop-up notifications are exactly like Teams."</p><div class="tc-auth"><div class="tc-av" style="background:linear-gradient(135deg,#ea580c,#fb923c)">AJ</div><div><div class="tc-n">Dr. Ahmed Javed</div><div class="tc-r">DSO · 3 practices · Leeds</div><div class="tc-bdg" style="background:#fff7ed;color:#c2410c">🏥 Group / DSO</div></div></div></div>
+      <div class="tc"><div class="tc-stars">★★★★★</div><p class="tc-q">"Voice notes in the chair — done in 8 seconds, GDC compliant. Saves me at least 90 minutes of admin every single day."</p><div class="tc-auth"><div class="tc-av" style="background:linear-gradient(135deg,#be185d,#f472b6)">NK</div><div><div class="tc-n">Dr. Nadia Khan</div><div class="tc-r">Associate Dentist · Bristol</div><div class="tc-bdg" style="background:#fdf2f8;color:#9d174d">🎙 Voice notes</div></div></div></div>
+      <div class="tc"><div class="tc-stars">★★★★★</div><p class="tc-q">"Support responds in under 5 minutes. Our 12-year patient database migrated from our old system in under 24 hours."</p><div class="tc-auth"><div class="tc-av" style="background:linear-gradient(135deg,#0891b2,#22d3ee)">JM</div><div><div class="tc-n">Janet Moore</div><div class="tc-r">Practice Manager · Cardiff</div><div class="tc-bdg" style="background:#ecfeff;color:#0e7490">⚡ 24hr migration</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="sec bg-off" id="pricing">
+  <div class="W">
+    <div class="sec-tag"><span class="tag tag-n">Transparent pricing</span></div>
+    <h2 class="sec-h">5–10% below each competitor tier.<br>More features included.</h2>
+    <p class="sec-sub">All plans include NHS FP17, UK support and NHSBSA access. Monthly or annual — cancel any time. One-time setup fee of £400 for all plans.</p>
+    <div class="bill-row">
+      <span class="bl on" id="lm">Monthly</span>
+      <div class="tog" id="tog" onclick="tB()"><div class="tog-k"></div></div>
+      <span class="bl" id="la">Annual <span class="save-b">Save 15%</span></span>
+    </div>
+    <div class="plans">
+      <div class="plan">
+        <div class="plan-n">Starter</div>
+        <div class="plan-p"><sup>£</sup><span class="pn" data-m="199" data-y="169">199</span><small>/mo</small></div>
+        <div class="plan-per">+ VAT · per surgery · up to 2 users</div>
+        <p class="plan-tl">Single-surgery NHS practices</p>
+        <div class="plan-div"></div>
+        <div class="plan-fs">
+          <div class="pf">NHS FP17 &amp; FP17O submission</div>
+          <div class="pf">Appointment diary + patients</div>
+          <div class="pf">Manual clinical notes</div>
+          <div class="pf">Email recall reminders</div>
+          <div class="pf">100 SMS credits / month</div>
+          <div class="pf">GDPR audit trail</div>
+          <div class="pf">UK support (business hours)</div>
+          <div class="pf no">AI voice notes <span style="font-size:.7rem;color:var(--teal3)">(+£25/mo add-on)</span></div>
+          <div class="pf no">Perio charting + BPE</div>
+          <div class="pf no">Online booking portal</div>
+          <div class="pf no">WhatsApp reminders</div>
+        </div>
+        <div style="background:var(--off);border-radius:8px;padding:.625rem;margin-bottom:.875rem;font-size:.78rem;color:var(--t3);text-align:center">Setup fee: <strong style="color:var(--navy)">£400</strong> one-time · Migration from <strong style="color:var(--navy)">£199</strong></div>
+        <button class="plan-cta pc-o" onclick="location.href='#contact'">Start free trial</button>
+      </div>
+      <div class="plan">
+        <div class="plan-n">Professional</div>
+        <div class="plan-p"><sup>£</sup><span class="pn" data-m="259" data-y="220">259</span><small>/mo</small></div>
+        <div class="plan-per">+ VAT · per surgery · up to 5 users</div>
+        <p class="plan-tl">Established practices needing full clinical tools</p>
+        <div class="plan-div"></div>
+        <div class="plan-fs">
+          <div class="pf"><strong>Everything in Starter</strong></div>
+          <div class="pf"><strong>AI voice clinical notes</strong></div>
+          <div class="pf"><strong>Multi-clinician diary</strong></div>
+          <div class="pf"><strong>Perio charting + BPE</strong></div>
+          <div class="pf"><strong>Lab tracker + consent forms</strong></div>
+          <div class="pf"><strong>Referral letters</strong></div>
+          <div class="pf"><strong>300 SMS credits / month</strong></div>
+          <div class="pf"><strong>Unlimited users</strong></div>
+          <div class="pf no">Scotland GP17</div>
+          <div class="pf no">Staff financial reports</div>
+          <div class="pf no">Online booking portal</div>
+          <div class="pf no">WhatsApp reminders</div>
+        </div>
+        <div style="background:var(--off);border-radius:8px;padding:.625rem;margin-bottom:.875rem;font-size:.78rem;color:var(--t3);text-align:center">Setup fee: <strong style="color:var(--navy)">£400</strong> one-time · Migration from <strong style="color:var(--navy)">£199</strong></div>
+        <button class="plan-cta pc-o" onclick="location.href='#contact'">Start free trial</button>
+      </div>
+      <div class="plan pop">
+        <div class="plan-bdg">⭐ Most popular</div>
+        <div class="plan-n">Growth</div>
+        <div class="plan-p"><sup>£</sup><span class="pn" data-m="289" data-y="246">289</span><small>/mo</small></div>
+        <div class="plan-per">+ VAT · per surgery · unlimited users</div>
+        <p class="plan-tl">Growing NHS &amp; private practices</p>
+        <div class="plan-div"></div>
+        <div class="plan-fs">
+          <div class="pf"><strong>Everything in Professional</strong></div>
+          <div class="pf"><strong>🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland GP17 support</strong></div>
+          <div class="pf"><strong>📈 Staff financial reports</strong></div>
+          <div class="pf"><strong>💬 Team chat + notifications</strong></div>
+          <div class="pf"><strong>📅 Online booking portal</strong></div>
+          <div class="pf"><strong>📱 Patient portal</strong></div>
+          <div class="pf"><strong>💬 WhatsApp reminders</strong></div>
+          <div class="pf"><strong>🦷 3D tooth chart</strong></div>
+          <div class="pf"><strong>📊 KPI dashboard + analytics</strong></div>
+          <div class="pf"><strong>500 SMS credits / month</strong></div>
+          <div class="pf"><strong>Short notice filler</strong></div>
+        </div>
+        <div style="background:rgba(23,184,155,.06);border:1px solid rgba(23,184,155,.15);border-radius:8px;padding:.625rem;margin-bottom:.875rem;font-size:.78rem;color:var(--teal3);text-align:center;font-weight:600">Setup: £400 · Migration £199–£499 · Best value</div>
+        <button class="plan-cta pc-t" onclick="location.href='#contact'">Start free trial →</button>
+      </div>
+      <div class="plan ent">
+        <div class="plan-n">Enterprise</div>
+        <div class="plan-p"><sup>£</sup><span class="pn" data-m="629" data-y="535">629</span><small>/mo</small></div>
+        <div class="plan-per">+ VAT · unlimited surgeries &amp; sites</div>
+        <p class="plan-tl">DSOs, groups &amp; multi-site practices</p>
+        <div class="plan-div"></div>
+        <div class="plan-fs">
+          <div class="pf"><strong>Everything in Growth</strong></div>
+          <div class="pf"><strong>Multi-site management</strong></div>
+          <div class="pf"><strong>WhatsApp API automation</strong></div>
+          <div class="pf"><strong>1,000 SMS credits / month</strong></div>
+          <div class="pf"><strong>Custom API access</strong></div>
+          <div class="pf"><strong>Dedicated account manager</strong></div>
+          <div class="pf"><strong>99.9% SLA guarantee</strong></div>
+          <div class="pf"><strong>White-label reseller rights</strong></div>
+          <div class="pf"><strong>Priority 24/7 phone support</strong></div>
+          <div class="pf"><strong>Onboarding + staff training</strong></div>
+        </div>
+        <div style="background:rgba(23,184,155,.08);border:1px solid rgba(23,184,155,.18);border-radius:8px;padding:.625rem;margin-bottom:.875rem;font-size:.78rem;color:rgba(226,250,246,.7);text-align:center">Setup negotiable · Custom migration pricing</div>
+        <button class="plan-cta pc-d" onclick="location.href='#contact'">Talk to sales →</button>
+      </div>
+    </div>
+
+    <!-- Add-ons -->
+    <p style="text-align:center;font-size:.78rem;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;margin:2.25rem 0 1rem">Optional add-ons — available on any plan</p>
+    <div class="aos" style="grid-template-columns:repeat(4,1fr)">
+      <div class="ao"><div class="ao-ic">🎙️</div><div class="ao-n">AI Voice Notes</div><div class="ao-p">£25 <small>/ surgery/mo</small></div><div class="ao-d">Add to Starter · Included Professional+</div></div>
+      <div class="ao"><div class="ao-ic">🧠</div><div class="ao-n">AI X-ray Analysis</div><div class="ao-p">£49 <small>/ surgery/mo</small></div><div class="ao-d">Dentally Vision charges more · Full AI analysis</div></div>
+      <div class="ao"><div class="ao-ic">✍️</div><div class="ao-n">Digital Consent Forms</div><div class="ao-p">£29 <small>/ surgery/mo</small></div><div class="ao-d">E-signature · WhatsApp send · Consentric charges £50+</div></div>
+      <div class="ao"><div class="ao-ic">🏛️</div><div class="ao-n">CQC Compliance Toolkit</div><div class="ao-p">£60 <small>/ month</small></div><div class="ao-d">All 5 KLOEs · Staff CPD · Evidence log · dental-compliance.co.uk charges £100+</div></div>
+      <div class="ao"><div class="ao-ic">⭐</div><div class="ao-n">Review Automation</div><div class="ao-p">£39 <small>/ month</small></div><div class="ao-d">Google + Trustpilot · Birdeye charges £150+</div></div>
+      <div class="ao"><div class="ao-ic">💰</div><div class="ao-n">Treatment Finance</div><div class="ao-p">0.5% <small>commission</small></div><div class="ao-d">Payl8r · Medenta · Novuna · No upfront cost</div></div>
+      <div class="ao"><div class="ao-ic">📱</div><div class="ao-n">Patient Mobile App</div><div class="ao-p">£79 <small>/ month</small></div><div class="ao-d">Branded iOS + Android · Book · Pay · Sign forms</div></div>
+      <div class="ao"><div class="ao-ic">🔗</div><div class="ao-n">Xero / Accounting Sync</div><div class="ao-p">£25 <small>/ month</small></div><div class="ao-d">Xero · QuickBooks · Auto-sync NHS + private invoices</div></div>
+      <div class="ao"><div class="ao-ic">🚀</div><div class="ao-n">Setup &amp; Onboarding</div><div class="ao-p">£400 <small>one-time</small></div><div class="ao-d">Required · SOE charges £575 · Includes training</div></div>
+      <div class="ao"><div class="ao-ic">📦</div><div class="ao-n">Data Migration</div><div class="ao-p">£199<small>–</small>£499 <small>one-time</small></div><div class="ao-d">SOE/Dentally/R4/Shire · Complexity-based</div></div>
+      <div class="ao"><div class="ao-ic">💬</div><div class="ao-n">Extra SMS</div><div class="ao-p">£11 <small>/ 100 credits</small></div><div class="ao-d">Delivered only · never expire</div></div>
+      <div class="ao"><div class="ao-ic">📱</div><div class="ao-n">WhatsApp API</div><div class="ao-p">£39 <small>/ month</small></div><div class="ao-d">Auto-reminders · Growth plan+</div></div>
+      <div class="ao"><div class="ao-ic">🩻</div><div class="ao-n">X-ray Storage</div><div class="ao-p">£12 <small>/ 10GB/mo</small></div><div class="ao-d">UK-hosted · GDPR-compliant</div></div>
+      <div class="ao"><div class="ao-ic">🏥</div><div class="ao-n">Extra Surgery</div><div class="ao-p">£49 <small>/ surgery/mo</small></div><div class="ao-d">Add to any plan at any time</div></div>
+      <div class="ao"><div class="ao-ic">📤</div><div class="ao-n">Full Data Export</div><div class="ao-p">£59 <small>one-time</small></div><div class="ao-d">CSV / JSON · Included in Growth+</div></div>
+      <div class="ao"><div class="ao-ic">🔀</div><div class="ao-n">Referral Tracker</div><div class="ao-p">£19 <small>/ month</small></div><div class="ao-d">Specialist referrals · outcomes · return tracking</div></div>
+    </div>
+    <p style="text-align:center;margin-top:1.5rem;font-size:.875rem;color:var(--t3)">All prices exclude VAT &nbsp;·&nbsp; 30-day free trial, no card required &nbsp;·&nbsp; Monthly or annual billing &nbsp;·&nbsp; Cancel anytime with 30 days notice</p>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section class="sec" id="compare">
+  <div class="W">
+    <div class="sec-tag"><span class="tag tag-t">Head-to-head comparison</span></div>
+    <h2 class="sec-h">How we compare — feature by feature</h2>
+    <p class="sec-sub">Every row verified against competitor websites and public pricing as of May 2026.</p>
+    <div class="cmp-scroll">
+      <table class="cmp-t">
+        <thead><tr>
+          <th class="cth">Feature</th>
+          <th class="cth us">
+            Pro Dental Connect
+            <span class="cth-sub">£199–£629/mo</span>
+          </th>
+          <th class="cth">Dentally<span class="cth-sub">£84–£320/surgery</span></th>
+          <th class="cth">SOE / EXACT<span class="cth-sub">~£71/surgery</span></th>
+          <th class="cth">CareStack<span class="cth-sub">~£550/location</span></th>
+        </tr></thead>
+        <tbody>
+          <tr><td class="ctd c-bold">Starting monthly price</td><td class="ctd us-col" style="font-size:.9375rem;font-weight:900;color:var(--teal3)">£199/surgery</td><td class="ctd">£84–£320/surgery</td><td class="ctd">~£71/surgery</td><td class="ctd">~£550/location</td></tr>
+          <tr><td class="ctd c-bold">Setup / onboarding fee</td><td class="ctd us-col"><span class="c-us">£400 one-time</span></td><td class="ctd"><span class="c-part">Required (contact)</span></td><td class="ctd"><span class="c-part">£575 included</span></td><td class="ctd"><span class="c-part">£0* (conditions)</span></td></tr>
+          <tr><td class="ctd c-bold">Data migration cost</td><td class="ctd us-col"><span class="c-us">£199–£499 one-time</span></td><td class="ctd"><span class="c-part">Included in onboarding</span></td><td class="ctd"><span class="c-part">Included in £575</span></td><td class="ctd"><span class="c-part">£0* (basic only)</span></td></tr>
+          <tr><td class="ctd">NHS FP17 WebEDI direct</td><td class="ctd us-col"><span class="c-yes">✓</span></td><td class="ctd"><span class="c-yes">✓</span></td><td class="ctd"><span class="c-yes">✓</span></td><td class="ctd"><span class="c-part">England only</span></td></tr>
+          <tr><td class="ctd">Scotland GP17 support</td><td class="ctd us-col"><span class="c-yes">✓</span></td><td class="ctd"><span class="c-no">✗</span></td><td class="ctd"><span class="c-yes">✓</span></td><td class="ctd"><span class="c-no">✗</span></td></tr>
+          <tr><td class="ctd">AI voice clinical notes</td><td class="ctd us-col"><span class="c-us">+£25/mo or included</span></td><td class="ctd"><span class="c-part">Add-on cost</span></td><td class="ctd"><span class="c-no">✗</span></td><td class="ctd"><span class="c-part">Add-on cost</span></td></tr>
+          <tr><td class="ctd">3D interactive tooth chart</td><td class="ctd us-col"><span class="c-us">✓ With roots</span></td><td class="ctd"><span class="c-part">Basic only</span></td><td class="ctd"><span class="c-part">Basic only</span></td><td class="ctd"><span class="c-part">Basic only</span></td></tr>
+          <tr><td class="ctd">Staff financial reports + access control</td><td class="ctd us-col"><span class="c-us">✓ Per-user control</span></td><td class="ctd"><span class="c-part">Basic only</span></td><td class="ctd"><span class="c-part">Basic only</span></td><td class="ctd"><span class="c-part">Basic only</span></td></tr>
+          <tr><td class="ctd">Online booking with approval</td><td class="ctd us-col"><span class="c-yes">✓</span></td><td class="ctd"><span class="c-part">Portal add-on</span></td><td class="ctd"><span class="c-part">Partial</span></td><td class="ctd"><span class="c-yes">✓</span></td></tr>
+          <tr><td class="ctd">Deposit &amp; payment links</td><td class="ctd us-col"><span class="c-yes">✓</span></td><td class="ctd"><span class="c-no">✗</span></td><td class="ctd"><span class="c-no">✗</span></td><td class="ctd"><span class="c-no">✗</span></td></tr>
+          <tr><td class="ctd">WhatsApp reminder templates</td><td class="ctd us-col"><span class="c-yes">✓</span></td><td class="ctd"><span class="c-no">✗</span></td><td class="ctd"><span class="c-no">✗</span></td><td class="ctd"><span class="c-no">✗</span></td></tr>
+          <tr><td class="ctd">Internal team chat</td><td class="ctd us-col"><span class="c-us">✓ MS Teams-style</span></td><td class="ctd"><span class="c-part">Basic Dentally Chat</span></td><td class="ctd"><span class="c-no">✗</span></td><td class="ctd"><span class="c-no">✗</span></td></tr>
+          <tr><td class="ctd">Short notice filler (auto-fill DNAs)</td><td class="ctd us-col"><span class="c-yes">✓</span></td><td class="ctd"><span class="c-no">✗</span></td><td class="ctd"><span class="c-no">✗</span></td><td class="ctd"><span class="c-no">✗</span></td></tr>
+          <tr><td class="ctd">Full data export / no lock-in</td><td class="ctd us-col"><span class="c-us">Growth+ or £59</span></td><td class="ctd"><span class="c-part">Restricted</span></td><td class="ctd"><span class="c-part">Difficult</span></td><td class="ctd"><span class="c-part">Difficult</span></td></tr>
+          <tr><td class="ctd">Monthly billing (no annual lock-in)</td><td class="ctd us-col"><span class="c-yes">✓</span></td><td class="ctd"><span class="c-part">Annual only</span></td><td class="ctd"><span class="c-yes">✓</span></td><td class="ctd"><span class="c-yes">✓</span></td></tr>
+          <tr><td class="ctd">Annual CREST pen testing</td><td class="ctd us-col"><span class="c-yes">✓</span></td><td class="ctd"><span class="c-part">Not published</span></td><td class="ctd"><span class="c-part">Not published</span></td><td class="ctd"><span class="c-part">Not published</span></td></tr>
+          <tr><td class="ctd c-bold">UK support response time</td><td class="ctd us-col" style="color:var(--teal3);font-weight:700">⚡ Under 5 minutes</td><td class="ctd">24–48 hours</td><td class="ctd">Varies</td><td class="ctd">1–3 days</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="text-align:center;margin-top:2rem">
+      <a href="#contact" class="btn btn-p btn-lg">Start your free trial — no card needed</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-s" id="contact">
+  <div class="W cta-in">
+    <span class="tag tag-w">Start today — free for 30 days</span>
+    <h2 class="cta-h">Ready to connect your practice?</h2>
+    <p class="cta-p">Join UK dental practices running smarter with Pro Dental Connect. No card required. No contracts. Cancel any time.</p>
+    <div class="cta-btns">
+      <a href="#" class="btn btn-p btn-lg" href="demo.html" target="_blank">Start your free 30-day trial</a>
+      <a href="#" class="btn btn-o btn-lg" href="demo.html" target="_blank">Book a live demo →</a>
+    </div>
+    <div class="cta-tr">
+      <div class="cta-ti"><em>✓</em> No credit card</div>
+      <div class="cta-ti"><em>✓</em> 30-day free trial</div>
+      <div class="cta-ti"><em>✓</em> Live in 24 hours</div>
+      <div class="cta-ti"><em>✓</em> Free UK support</div>
+      <div class="cta-ti"><em>✓</em> Cancel any time</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="W">
+    <div class="ft-in">
+      <div>
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem">
+          <div style="width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--teal),var(--teal2));display:flex;align-items:center;justify-content:center;font-size:1.125rem">🦷</div>
+          <div class="ft-bn">Pro Dental Connect<span>UK Practice Software</span></div>
+        </div>
+        <p class="ft-d">Complete dental practice management for UK NHS and private practices. FP17 claims, AI notes, online booking, 3D charting, team chat — in one platform.</p>
+        <div class="ft-badges">
+          <span class="ft-b">🏥 NHSBSA</span><span class="ft-b">🔐 AES-256</span>
+          <span class="ft-b">🛡️ UK GDPR</span><span class="ft-b">✅ Cyber Essentials</span>
+          <span class="ft-b">🔒 ISO 27001</span><span class="ft-b">☁ UK Hosted</span>
+        </div>
+      </div>
+      <div>
+        <div class="ft-ch">Product</div>
+        <div class="ft-ls">
+          <a href="#features">Features</a><a href="#pricing">Pricing</a>
+          <a href="#compare">Compare</a><a href="#security">Security</a><a href="#nhs">NHS</a>
+        </div>
+      </div>
+      <div>
+        <div class="ft-ch">Company</div>
+        <div class="ft-ls">
+          <a href="#">About us</a><a href="#">Blog</a>
+          <a href="#">Careers</a><a href="#">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="ft-ch">Legal</div>
+        <div class="ft-ls">
+          <a href="#">Privacy policy</a><a href="#">Terms</a>
+          <a href="#">GDPR statement</a><a href="#">Cookies</a>
+        </div>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <span class="ft-cp">© 2026 Pro Dental Connect Ltd. Registered in England &amp; Wales.</span>
+      <span class="ft-cp">support@prodentalconnect.co.uk · UK Hosted · GDPR Compliant</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+function oD(){document.getElementById('dr').classList.add('open');document.body.style.overflow='hidden'}
+function cD(){document.getElementById('dr').classList.remove('open');document.body.style.overflow=''}
+var _a=false;
+function tB(){
+  _a=!_a;
+  document.getElementById('tog').classList.toggle('on',_a);
+  document.getElementById('lm').classList.toggle('on',!_a);
+  document.getElementById('la').classList.toggle('on',_a);
+  document.querySelectorAll('.pn').forEach(function(e){e.textContent=_a?e.getAttribute('data-y'):e.getAttribute('data-m')});
+}
+</script>
+</body>
+</html>
